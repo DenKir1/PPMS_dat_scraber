@@ -1,6 +1,6 @@
 
 
-# hi * 10^6
+# Table of diamagnetic constants, in unit - hi * 10^6
 diamagn_pascal_coeff = {
     "Ag+1": 24, "Al+3": 2, "As+3": 9, "As+5": 6, "AsO3-3": 51, "AsO4-3": 60, "Au+1": 40, "Au+3": 32,
     "B+3": 0.2, "BF4-1": 39, "BO3-3": 35, "Ba+2": 32, "Be+2": 0.4, "Bi+3": 25, "Bi+5": 23, "Br-1": 36, "Br+5": 6, "BrO3-1": 40, 
@@ -27,7 +27,7 @@ diamagn_pascal_coeff = {
     
 }
 
-
+# Table of atomic mass
 mass_dict = {
 
     'H': 1.007941, 'He': 4.002602, 'Li': 6.94, 'Be': 9.0121831, 'B': 10.811, 'C': 12.01074, 'N': 14.006703, 'O': 15.999405, 

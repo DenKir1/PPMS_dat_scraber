@@ -1,5 +1,5 @@
 # PPMS_dat_scraber
-## It finds dependencies and saves theirs to .csv and .png
+## It finds dependencies from PPMS files and saves theirs to .csv and .png
 
 ### Need to begin:
 

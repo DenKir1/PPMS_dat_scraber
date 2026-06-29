@@ -3,6 +3,7 @@ from dicts import diamagn_pascal_coeff, mass_dict
 
 
 class Unit():
+    """Instance of an element for further calculating   """
     def __init__(self, name, number=1, curr_valence=None):
         self.name = name
         self.number = float(number) if number else 1.0
@@ -38,7 +39,7 @@ class Unit():
         
 
 class Composition():
-    """Type like 'H2O' or 'H+1 2O-2' need space after valence"""
+    """Type like 'H2O' or 'H+1 2O-2', need space after valence"""
     def __init__(self, formula, atoms=0, mass=0, dia=0, units=0):
         self.formula = formula
         self.atoms = self.find_atoms()

@@ -9,7 +9,7 @@
 
 - Meet requirements: *pip install -r requirements.txt*
 
-- Put in the folder */data* all *.dat* files from PPMS (*mkdir data*)
+- Put in the folder */data* all *.dat* files from PPMS
 
 - Make changes in *.dat* file by any txt editor, put in INFO line formula, molecular mass and the diamagnetic coefficient in header part in according to sample: 
 

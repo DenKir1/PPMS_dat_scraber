@@ -44,5 +44,5 @@
         INFO,dia,132.2
         ...
 
-- Launch it: *.\main.py*
+- Launch it: *.\main.py* or double click on *launch.bat*
 - Have fun

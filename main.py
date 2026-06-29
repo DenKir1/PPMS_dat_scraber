@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from calculate_mass_dia import Composition
 
-# change it for apropriate for better fitting by Kurie-Weiss
+# change it to apropriate value for better fitting by Kurie-Weiss
 TEMP_KURIE_CUTOFF = 150
 
-folder = Path('./data') # Укажите нужный путь
-# Находит все .dat файлы в папке и во всех её подпапках
+folder = Path('./data') # Change the path if necessary
+# If finds all .dat files in the folder and after 
 dat_files = [str(file) for file in folder.rglob('*.dat')]
 print("\n\n=============================== CHECK IN ===================================")
 print("\n\n=============================== we found .dat files: ===================================")
@@ -25,7 +25,7 @@ def is_text_decode(file_path):
 
 
 def check_header(name_dat):
-    # check for mass in header
+    # check out for mass in header
     print(f"\n============== open new .dat file  -  {name_dat}  ==============")
     df_name = pd.read_csv(name_dat, skiprows=3, nrows=1,  header=None, delimiter="=")
     print(df_name)
@@ -89,7 +89,7 @@ def fill_data(data, m_s, m_box, molm, dia):
 
     df = data
     # #df = df_all[df_all['M-DC (emu)'].notna()].copy()
-    # Округление до 1 знака после запятой
+    # It needs for grouping
     df['T, K'] = df['Temperature (K)'].round(1)
     df['H, Oe'] = df['Magnetic Field (Oe)'].round(0)
     
@@ -117,11 +117,12 @@ def draw_hloops(df, file_name):
     for max_t in frequent_values_T:
         print(f"data for {max_t} K")
         filtered_df = df[df["T, K"] == max_t]
-        # 1. Находим индекс строки, где значение ближе всего к указанной величине
+
+        # It finds the coercitive force like value
         closest_idx = (filtered_df['M-DC (emu)'] - 0).abs().idxmin()
-        # 2. Выводим значение другого столбца ('category') для этой строки
         result = filtered_df.loc[closest_idx, "Magnetic Field (Oe)"]
-        print(f"The closest to zero M-DC = {result}, coercitive force like")
+        print(f"The closest to zero M-DC = {result}, is coercitive force like")
+        
         m_name = f'hloop_{max_t}_K'
         df_to_hloops = filtered_df[["Magnetic Field (Oe)", 'M-DC (emu)',]]
         
@@ -151,8 +152,11 @@ def draw_temps(df, file_name):
         
 
 def saving_pics(filtered_df, file_name, m_name):
+
+    if filtered_df.empty:
+        print("There is nothing")
+        return 
     x_label, y_label = filtered_df.columns
-    
     print("\n==============  saving csv  ==============\n")
     filtered_df.to_csv(f'{file_name}_{m_name}.csv', index=False)
 
@@ -162,21 +166,24 @@ def saving_pics(filtered_df, file_name, m_name):
                
     plt.plot(x5, y5, color='green', marker='o', markersize=7)
     plt.xlabel(x_label, fontsize=24, color='black')
-    plt.ylabel(y_label, fontsize=24, color='black') #Подпись для оси y
-    plt.title(f'{m_name}', fontsize=24, color='black') #Название
+    plt.ylabel(y_label, fontsize=24, color='black') 
+    plt.title(f'{m_name}', fontsize=24, color='black') 
     plt.grid(True)
     plt.savefig(f'{file_name}_{m_name}.png', dpi=300, bbox_inches='tight', transparent=True)
     plt.close()
 
 
 def curie_calc(df, file_name, m_name):
+    if df.empty:
+        print("There is nothing")
+        return 
     print("\n==============  saving iHi csv  ==============\n")
     title = file_name[5:]
     df.to_csv(f'{file_name}_{m_name}.csv', index=False)
 
     x_label, y_label = df.columns
     print("\n==============  Performing Kurie-Weiss calculation  ==============\n")
-    # 1. Фильтруем значения x > 150 ---TEMP_KURIE_CUTOFF
+    # 1. Filter x > 150 ---TEMP_KURIE_CUTOFF
     filtered_df = df[df[x_label] > TEMP_KURIE_CUTOFF]
 
     X_fit = filtered_df[x_label].values
@@ -190,9 +197,10 @@ def curie_calc(df, file_name, m_name):
     plt.figure(figsize=(8, 5))
     plt.scatter(df[x_label], df[y_label], color='blue', label='Origin')
     plt.scatter(X_fit, Y_fit, color='orange', label='Calculated')
-    # Вычисляем y на основе найденных коэффициентов a и b
+    
     plt.plot(X_fit, a * X_fit + b, color='red', label=f'Curie-Weiss law: mu={mu:.3f} mB, Thetta={Thetta:.1f}K')
     plt.axvline(TEMP_KURIE_CUTOFF, color='gray', linestyle='--',)
+    
     plt.xlabel(x_label, fontsize=24, color='black')
     plt.ylabel(y_label, fontsize=24, color='black')
     plt.title(f'{title}_{m_name}', fontsize=24, color='black') #Название
@@ -205,11 +213,15 @@ def curie_calc(df, file_name, m_name):
 
 
 def create_ac(df, file_name):
+    print("\n==============  Creating AC data  ==============\n")
     df = df[["Temperature (K)", "Magnetic Field (Oe)","Frequency (Hz)", "Amplitude (Oe)", "AC_Hi'", "AC_Hi''",]]
     df = df[df["AC_Hi'"].notna()].copy()
+    if df.empty:
+        print("There is nothing")
+        return 
     labels = df.columns
     title = file_name[5:]
-    print("\n==============  Creating AC data  ==============\n")
+    
 
     values_F = df["Frequency (Hz)"].value_counts().index.to_list()
     
@@ -229,7 +241,7 @@ def create_ac(df, file_name):
     # ax.set_title(f'{file_name} AC')
     ax.set_xlabel(labels[0], fontsize=24, color='black')
     ax.set_ylabel('AC (emu/mol)', fontsize=24, color='black')
-    plt.title(f'{title}_AC', fontsize=24, color='black') #Название
+    plt.title(f'{title}_AC', fontsize=24, color='black') 
     plt.grid(True)
     print("\n==============  saving AC png  ==============\n")
     plt.savefig(f'{file_name}_AC.png', dpi=300, bbox_inches='tight', transparent=True)
@@ -249,7 +261,7 @@ for file in dat_files:
         create_ac(cdf, file_name)
 
     else:
-        print(f"{file} - is not proper")
+        print(f"{file} - is bad")
        
     
     

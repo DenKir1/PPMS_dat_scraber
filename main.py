@@ -245,8 +245,8 @@ for file in dat_files:
         df = read_dat(file)
         cdf = fill_data(df, m_s, m_box, molm, dia)
         draw_hloops(cdf, file_name)
-        #draw_temps(cdf, file_name)
-        #create_ac(cdf, file_name)
+        draw_temps(cdf, file_name)
+        create_ac(cdf, file_name)
 
     else:
         print(f"{file} - is not proper")

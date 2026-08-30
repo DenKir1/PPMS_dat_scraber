@@ -124,7 +124,7 @@ def draw_hloops(df, file_name):
         print(f"The closest to zero M-DC = {result}, is coercitive force like")
         
         m_name = f'hloop_{max_t}_K'
-        df_to_hloops = filtered_df[["Magnetic Field (Oe)", 'M-DC (emu)',]]
+        df_to_hloops = filtered_df[["Magnetic Field (Oe)", 'emu',]]
         
         saving_pics(df_to_hloops, file_name, m_name)
         
@@ -145,7 +145,7 @@ def draw_temps(df, file_name):
         filtered_df = df[df["H, Oe"] == max_m]
         m_name = f'DC_{max_m}_Oe'
         m_name_curie = f'iHi_{max_m}_Oe'
-        df_to_temps = filtered_df[["Temperature (K)", 'M-DC (emu)',]]
+        df_to_temps = filtered_df[["Temperature (K)", 'emu',]]
         df_to_curie = filtered_df[["Temperature (K)", 'iHi',]]
         curie_calc(df_to_curie, file_name, m_name_curie)
         saving_pics(df_to_temps, file_name, m_name)

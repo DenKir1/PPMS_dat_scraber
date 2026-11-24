@@ -55,6 +55,7 @@ def check_header(name_dat):
     print("======== checking mol mass and dia in header =========")
     print(f"---- formula = {formula}, molm = {molM}, dia = {diacoef} ----")
     print("======== Calculating molM and diacoef from the formula, make sure the formula is right, make change if need =========")
+    print("======== If You know molmass and dia, you need not type formula =========")
     print("======== You can type formula like 'H2O' or point on valence like 'H+12O' or with space 'H+1 2 O-2' to better find diacoef from the table =========")
 
     if formula == "nan":

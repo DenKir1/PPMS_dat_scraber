@@ -24,7 +24,7 @@
         INFO,m_s,0.0780
         INFO,m_b,0.0166
         INFO,moil,0.0443
-        INFO,formula,Y1.9Fe+3 1.05Ta0.95Hf0.1O7
+        INFO,formula,Y1.9Fe+3 1.0Ta0.9O7
         INFO,molm,529.30577
         INFO,dia,132.2
         INFO,,
@@ -39,10 +39,10 @@
         INFO,m_s,0.0780
         INFO,m_b,0.0166
         INFO,moil,0.0443
-        INFO,formula,Y1.9Fe+3 1.05Ta0.95Hf0.1O7
+        INFO,formula,Y1.9Fe+3 1.05Ta0.9O7
         INFO,molm,529.30577
         INFO,dia,132.2
         ...
 
-- Launch it: *.\main.py* or double click on *launch.bat*
+- Launch it: *python main.py* or double click on *launch.bat*
 - Have fun

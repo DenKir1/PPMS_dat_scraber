@@ -5,7 +5,7 @@
 
 - Clone the repository.
 
-- Activate enviroment: *python -m venv venv* and *.venv/bin/activate* (windows -  *.venv\Scripts\activate.bat*)
+- Activate enviroment: *python -m venv venv* and *source venv/bin/activate* (windows -  *venv\Scripts\activate.bat*)
 
 - Meet requirements: *pip install -r requirements.txt*
 
